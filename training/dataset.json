@@ -1,0 +1,52 @@
+[
+  {
+    "instruction": "Analyze the business data and suggest growth strategies",
+    "input": "The company has 90 customers. Repeat rate is 45%. Most customers are aged 18-25. Social media engagement is low.",
+    "output": "The main issues are low customer loyalty and weak online presence. Strategies: 1) Launch a referral program to leverage young customers. 2) Improve social media content using short videos and influencers. 3) Introduce loyalty rewards to increase repeat rate. Expected impact: 30-50% customer growth within 6 months."
+  },
+  {
+    "instruction": "Analyze customer data and provide a growth plan",
+    "input": "The company has 120 customers, repeat rate is 70%, average age is 35, but new customer acquisition is slow.",
+    "output": "The company has strong retention but weak acquisition. Strategies: 1) Invest in targeted online ads. 2) Partner with complementary businesses. 3) Offer limited-time promotions for new customers. Expected impact: 25-40% growth."
+  },
+  {
+    "instruction": "Suggest strategies to increase customers by 50%",
+    "input": "The business has 70 customers, low repeat purchases, and poor website conversion.",
+    "output": "Key problems are low retention and website inefficiency. Strategies: 1) Redesign website for better user experience. 2) Add customer testimonials. 3) Simplify checkout process. Expected impact: up to 50% increase in customers."
+  },
+  {
+    "instruction": "Evaluate the company and suggest improvements",
+    "input": "The company has 200 customers, repeat rate is high, but profit margins are shrinking.",
+    "output": "The main issue is cost control rather than customer volume. Strategies: 1) Optimize supply chain. 2) Increase pricing for premium services. 3) Reduce operational inefficiencies. Expected impact: improved profitability without losing customers."
+  },
+  {
+    "instruction": "Analyze this business and suggest growth opportunities",
+    "input": "The business has 50 customers, strong social media engagement, but low conversion into paying customers.",
+    "output": "The problem lies in sales funnel efficiency. Strategies: 1) Add clearer call-to-action. 2) Offer first-time buyer discounts. 3) Improve landing pages. Expected impact: 40-60% increase in paying customers."
+  },
+  {
+    "instruction": "Create a strategy to grow a local business",
+    "input": "A café has 90 customers per week, mostly students, with low repeat visits.",
+    "output": "Strategies: 1) Introduce student loyalty cards. 2) Offer bundle discounts. 3) Promote limited-time seasonal drinks. Expected impact: 20-40% weekly customer growth."
+  },
+  {
+    "instruction": "Provide business growth strategies",
+    "input": "The company has 150 customers, but customer satisfaction is low and complaints are increasing.",
+    "output": "The core issue is service quality. Strategies: 1) Improve customer support training. 2) Collect and act on feedback. 3) Introduce service guarantees. Expected impact: improved retention and organic growth."
+  },
+  {
+    "instruction": "Analyze the customer base and suggest expansion strategies",
+    "input": "The business operates in a small town with 80 customers and limited local reach.",
+    "output": "The growth bottleneck is geographic reach. Strategies: 1) Launch online sales. 2) Offer delivery services. 3) Use regional digital marketing. Expected impact: 50%+ expansion potential."
+  },
+  {
+    "instruction": "Suggest strategies to improve customer acquisition",
+    "input": "The company has 110 customers but relies only on word-of-mouth marketing.",
+    "output": "The company lacks scalable marketing. Strategies: 1) Create a social media marketing plan. 2) Launch referral incentives. 3) Use basic online ads. Expected impact: 30-50% customer increase."
+  },
+  {
+    "instruction": "Evaluate and improve the company performance",
+    "input": "The business has stable customers but declining revenue per customer.",
+    "output": "The issue is low average order value. Strategies: 1) Upsell premium options. 2) Bundle products. 3) Offer subscriptions. Expected impact: increased revenue without increasing customer count."
+  }
+]

@@ -1,0 +1,11 @@
+torch
+transformers
+accelerate
+peft
+datasets
+trl
+fastapi
+uvicorn
+streamlit
+pandas
+scikit-learn
