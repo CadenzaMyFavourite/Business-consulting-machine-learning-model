@@ -1,11 +1,23 @@
+# Backend
+fastapi
+uvicorn[standard]
+sqlmodel
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+python-dotenv
+pydantic-settings
+email-validator
+pandas
+scikit-learn
+
+# Machine Learning
 torch
 transformers
 accelerate
 peft
 datasets
 trl
-fastapi
-uvicorn
-streamlit
-pandas
-scikit-learn
+
+# Frontend (optional if running React app)
+# (run `npm install` in frontend/web instead)

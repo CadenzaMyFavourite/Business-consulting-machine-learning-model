@@ -1,0 +1,5 @@
+title,description,status,priority,due_date,owner_email
+"Set up onboarding flow","Create user onboarding steps in the React app","todo",2,2026-04-01,admin@example.com
+"Data pipeline prototype","Build ETL pipeline to ingest CSV and store in DB","in_progress",3,2026-04-05,admin@example.com
+"Forecast model training","Train PyTorch model for KPI prediction","todo",4,2026-04-10,admin@example.com
+"Dashboard charts","Add trend charts and task statistics","todo",2,2026-04-02,admin@example.com

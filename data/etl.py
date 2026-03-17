@@ -1,27 +1,28 @@
+"""ETL utilities for loading and preparing dataset(s) for analytics."""
+
 import pandas as pd
 
 
-def load_client_data(path: str = "data/demo_clients.csv") -> pd.DataFrame:
-    """Load client dataset for analytics and ML training."""
-    return pd.read_csv(path)
+def load_clients(path: str = "data/demo_clients.csv") -> pd.DataFrame:
+    """Load a dataset of client-level metrics."""
+    df = pd.read_csv(path)
+    return df
 
 
-def clean_client_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Basic data cleaning / type coercion."""
+def clean_clients(df: pd.DataFrame) -> pd.DataFrame:
+    """Basic cleaning: type conversions and missing data."""
     df = df.copy()
-
     for col in ["customers", "repeat_rate", "avg_age", "social_engagement"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
-
     df.fillna(df.median(numeric_only=True), inplace=True)
     return df
 
 
 def summarize_clients(df: pd.DataFrame) -> dict:
-    """Return a simple summary of the loaded client dataset."""
+    """Return a small summary dict for reporting."""
     return {
-        "rows": int(len(df)),
+        "row_count": int(len(df)),
         "avg_customers": float(df["customers"].mean()),
         "avg_repeat_rate": float(df["repeat_rate"].mean()),
         "avg_age": float(df["avg_age"].mean()),
