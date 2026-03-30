@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+app.db
+backend/forecast_model.pt
+frontend/web/node_modules/
+frontend/web/dist/

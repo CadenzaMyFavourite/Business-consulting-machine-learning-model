@@ -1,92 +1,78 @@
 # Smart Analytics & Task Management Platform
 
-A full-stack Python + JavaScript platform with:
-- **FastAPI** backend (CRUD + auth + WebSocket updates)
-- **SQLite** (default) backend with SQLModel
-- **Pandas ETL pipelines** for cleaning and aggregating data
-- **PyTorch** predictive model exposed via API
-- **React + TailwindCSS** dashboard for tasks, charts, and predictions
+A full-stack project with:
 
----
+- **FastAPI** for auth, task CRUD, predictions, and authenticated WebSocket updates
+- **SQLite** by default, with conditional engine config for PostgreSQL-style URLs
+- **Pandas** utilities for sample data loading and ETL
+- **PyTorch** for a lightweight KPI prediction demo
+- **Vite + React + TailwindCSS** for the only supported frontend
 
-## 🚀 Getting Started (Local)
+## Getting Started
 
-### 1) Backend Setup (Python)
+### 1. Backend setup
 
-1. Create a virtual environment and install dependencies:
+Create a virtual environment and install dependencies:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-.venv\Scripts\Activate    # Windows
+source .venv/bin/activate   # macOS/Linux
+.venv\Scripts\Activate.ps1  # Windows PowerShell
 pip install -r requirements.txt
 ```
 
-2. (Optional) Generate sample data and load into the database:
+Optional: load demo data and a seeded demo user:
 
 ```bash
 python -m data.load_sample_data
 ```
 
-3. Start the FastAPI server:
+Start the API:
 
 ```bash
 uvicorn backend.main:app --reload
 ```
 
-The API will be available at: `http://127.0.0.1:8000`
+The backend runs at `http://127.0.0.1:8000`.
 
+### 2. Frontend setup
 
-### 2) Frontend Setup (React + Tailwind)
-
-1. Install dependencies:
+Install the Vite app dependencies:
 
 ```bash
 cd frontend/web
 npm install
 ```
 
-2. Start the development server:
+Start the React dev server:
 
 ```bash
 npm run dev
 ```
 
-Open the app at: `http://localhost:5173`
+The frontend runs at `http://localhost:5173`.
 
+By default, Vite proxies API and WebSocket traffic to `http://127.0.0.1:8000`. If you want to point the frontend at a different backend, copy `frontend/web/.env.example` to `frontend/web/.env` and set `VITE_API_BASE_URL` or `VITE_API_PROXY_TARGET`.
 
-## 🧩 Project Structure
+## Quick Usage
 
-- `backend/` – FastAPI REST + WebSocket backend, auth, DB models, prediction endpoint.
-- `data/` – ETL helpers, sample datasets, and a loader script.
-- `training/` – PyTorch model training script.
-- `frontend/web/` – React + Tailwind dashboard.
-- `ai_core/` – legacy AI inference modules (kept for compatibility).
-
-
-## ✅ Available Features
-
-- **User authentication** with JWT (register/login)
-- **Task CRUD API** with WebSocket pushing real-time updates
-- **Prediction endpoint** powered by a simple PyTorch model
-- **ETL utilities** for cleaning and summarizing data
-- **React dashboard** (tasks + charts + prediction form)
-
-
-## 🧪 Quick Usage
-
-1. Start backend (`uvicorn backend.main:app --reload`)
-2. Start frontend (`cd frontend/web && npm run dev`)
-3. Login with the seeded user:
+1. Start the backend.
+2. Start the frontend.
+3. Open `http://localhost:5173`.
+4. Create an account in the UI, or load sample data and sign in with:
    - Email: `admin@example.com`
    - Password: `password123`
 
+## Project Structure
 
-## 📌 Notes
+- `backend/` FastAPI application, auth helpers, SQLModel models, and WebSocket manager
+- `data/` sample datasets, ETL helpers, and demo-data loader
+- `training/` demo model training scripts
+- `frontend/web/` Vite + React dashboard
+- `ai_core/` legacy inference modules kept for compatibility experiments
 
-- You can use SQLite (`app.db`) by default; change `backend/config.py` to connect to PostgreSQL.
-- The model used for `/predict` is a simple demo network. Replace training data and model logic in `training/train_forecast.py` and `backend/predictor.py` for production.
+## Notes
 
----
-
-Enjoy building! 🎉
+- The task WebSocket now requires authentication and only broadcasts updates back to the signed-in user.
+- The KPI model behind `/predict` is still a demo network. Replace the training data and model logic before production use.
+- SQLite is the default database. Set `DATABASE_URL` in `.env` to point at a different database engine.

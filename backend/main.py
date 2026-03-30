@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session
 
 from backend.config import settings
-from backend.database import init_db, get_session
+from backend.database import engine, get_session, init_db
 from backend import schemas, crud, auth, predictor, ws
 
 app = FastAPI(title=settings.app_name, version="0.1.0")
@@ -12,7 +13,7 @@ app = FastAPI(title=settings.app_name, version="0.1.0")
 # Allow local frontend to call the API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For production, restrict this!
+    allow_origins=settings.cors_origin_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -62,7 +63,10 @@ async def create_task(
     db: Session = Depends(get_session),
 ):
     task = crud.create_task(db, task_in, owner_id=current_user.id)
-    await ws.manager.broadcast({"type": "task_created", "task": task.dict()})
+    await ws.manager.broadcast_to_user(
+        current_user.id,
+        {"type": "task_created", "task": jsonable_encoder(task)},
+    )
     return task
 
 
@@ -76,11 +80,14 @@ async def update_task(
     task = crud.update_task(db, task_id, task_in, owner_id=current_user.id)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
-    await ws.manager.broadcast({"type": "task_updated", "task": task.dict()})
+    await ws.manager.broadcast_to_user(
+        current_user.id,
+        {"type": "task_updated", "task": jsonable_encoder(task)},
+    )
     return task
 
 
-@app.delete("/tasks/{task_id}", status_code=204)
+@app.delete("/tasks/{task_id}")
 async def delete_task(
     task_id: int,
     current_user=Depends(auth.get_current_active_user),
@@ -89,7 +96,10 @@ async def delete_task(
     deleted = crud.delete_task(db, task_id, owner_id=current_user.id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Task not found")
-    await ws.manager.broadcast({"type": "task_deleted", "task_id": task_id})
+    await ws.manager.broadcast_to_user(
+        current_user.id,
+        {"type": "task_deleted", "task_id": task_id},
+    )
     return {"ok": True}
 
 
@@ -104,7 +114,19 @@ def predict_kpi(
 
 @app.websocket("/ws/tasks")
 async def websocket_tasks(websocket: WebSocket):
-    await ws.manager.connect(websocket)
+    token = websocket.query_params.get("token")
+    if not token:
+        await websocket.close(code=1008, reason="Missing auth token")
+        return
+
+    with Session(engine) as db:
+        try:
+            current_user = auth.ensure_active_user(auth.get_user_from_token(token, db))
+        except HTTPException:
+            await websocket.close(code=1008, reason="Invalid auth token")
+            return
+
+    await ws.manager.connect(websocket, user_id=current_user.id)
     try:
         while True:
             await websocket.receive_text()

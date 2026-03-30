@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Login from "./components/Login";
+import AuthScreen from "./components/AuthScreen";
 import Dashboard from "./components/Dashboard";
 import { setAuthToken } from "./api";
 
@@ -27,10 +27,7 @@ function App() {
             token ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />
           }
         />
-        <Route
-          path="/login"
-          element={<Login onSuccess={(t) => setToken(t)} />}
-        />
+        <Route path="/login" element={<AuthScreen onSuccess={(nextToken) => setToken(nextToken)} />} />
         <Route
           path="/dashboard"
           element={

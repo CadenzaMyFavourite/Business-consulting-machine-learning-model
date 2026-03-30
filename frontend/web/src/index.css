@@ -2,11 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
 html,
 body {
   height: 100%;
 }
 
 body {
-  @apply bg-slate-50 text-slate-900;
+  @apply text-slate-900 antialiased;
+  margin: 0;
+}
+
+#root {
+  min-height: 100%;
 }
